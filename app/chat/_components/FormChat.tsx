@@ -44,7 +44,6 @@ const FormChat = ({ userId, conversationId }: { userId: string, conversationId: 
     useEffect(() => {
         if(typeof window !== "undefined") {
             const SpeechRecognition = window.SpeechRecognition|| window.webkitSpeechRecognition;
-            console.log(SpeechRecognition);
 
             if(SpeechRecognition) {
                 setSpeechSupported(true);
@@ -66,7 +65,7 @@ const FormChat = ({ userId, conversationId }: { userId: string, conversationId: 
                 }
 
                 if (recognition) {
-                    recognition.onresult = (event: any) => {
+                    recognition.onresult = (event) => {
                         const current = event.resultIndex;
                         const transcript = event.results[current][0].transcript;
                         const currentMessage = watch("message") || "";
@@ -78,7 +77,7 @@ const FormChat = ({ userId, conversationId }: { userId: string, conversationId: 
                 }
 
                 if (recognition) {
-                    recognition.onerror = (event: any) => {
+                    recognition.onerror = (event) => {
                         console.log(event.error, "Error with speech recognition");
                         setIsListening(false);
 
@@ -110,7 +109,7 @@ const FormChat = ({ userId, conversationId }: { userId: string, conversationId: 
                 checkMicPermission();
             }
         }
-    }, []);
+    }, [setValue, watch]);
 
     const toggleListening = async () => {
         if(!recognitionRef.current) return;
