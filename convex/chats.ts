@@ -1,6 +1,16 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 
+// Define an interface for conversation details
+interface ConversationDetail {
+    id: string;
+    name: string;
+    chatImage: string;
+    lastMessage: string;
+    time: string;
+    unread: number;
+    type: string;
+}
 
 export const createOrGetConversation = mutation({
     args: { 
@@ -158,7 +168,7 @@ export const getConversation = query({
             })
         );
 
-        return conversationsWithDetails.sort((a: any, b: any) => b.time - a.time);
+        return conversationsWithDetails.sort((a: ConversationDetail, b: ConversationDetail) => new Date(b.time).getTime() - new Date(a.time).getTime());
     }
 });
 

@@ -6,7 +6,7 @@ import ProfileComponent from './_components/Profile';
 
 const Profile = async () => {
     const { userId } = await auth();
-
+ 
     const preloadedUserInfo = await preloadQuery(api.users.readUser, {
         userId: userId!
     });
